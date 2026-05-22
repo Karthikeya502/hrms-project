@@ -1,7 +1,6 @@
 from django.db import models
 
 class Employee(models.Model):
-    objects = None
     name = models.CharField(max_length=100)
     department = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
@@ -11,7 +10,6 @@ class Employee(models.Model):
         return self.name
 class Attendance(models.Model):
 
-    objects = None
     STATUS_CHOICES = (
         ('Present', 'Present'),
         ('Absent', 'Absent'),
@@ -34,7 +32,6 @@ class Attendance(models.Model):
 
 class Leave(models.Model):
 
-    objects = None
     LEAVE_TYPES = (
         ('Sick Leave', 'Sick Leave'),
         ('Casual Leave', 'Casual Leave'),

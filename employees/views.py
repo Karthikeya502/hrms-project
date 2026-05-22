@@ -381,3 +381,10 @@ def employee_profile(request):
         'employees/employee_profile.html',
         {'employee': employee}
     )
+@login_required
+def employee_dashboard(request):
+
+    return render(
+        request,
+        'employees/employee_dashboard.html'
+    )
