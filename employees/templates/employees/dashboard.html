@@ -8,49 +8,102 @@
 
 <div class="row">
 
-    <div class="col-md-3">
+    <div class="col-md-3 mb-4">
 
-        <div class="card text-center shadow p-3">
+        <div class="card shadow text-center p-4">
 
-            <h3>Total Employees</h3>
+            <h5>
+                Total Employees
+            </h5>
 
-            <h1>{{ total_employees }}</h1>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-3">
-
-        <div class="card text-center shadow p-3">
-
-            <h3>Present Today</h3>
-
-            <h1>{{ present_today }}</h1>
+            <h1>
+                {{ total_employees }}
+            </h1>
 
         </div>
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 mb-4">
 
-        <div class="card text-center shadow p-3">
+        <div class="card shadow text-center p-4">
 
-            <h3>Absent Today</h3>
+            <h5>
+                Total Attendance
+            </h5>
 
-            <h1>{{ absent_today }}</h1>
+            <h1>
+                {{ total_attendance }}
+            </h1>
 
         </div>
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 mb-4">
 
-        <div class="card text-center shadow p-3">
+        <div class="card shadow text-center p-4">
 
-            <h3>Pending Leaves</h3>
+            <h5>
+                Pending Leaves
+            </h5>
 
-            <h1>{{ pending_leaves }}</h1>
+            <h1>
+                {{ pending_leaves }}
+            </h1>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="card shadow text-center p-4">
+
+            <h5>
+                Approved Leaves
+            </h5>
+
+            <h1>
+                {{ approved_leaves }}
+            </h1>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <div class="card shadow p-4">
+
+            <h4 class="mb-3">
+                Quick Actions
+            </h4>
+
+            <a href="/employees/add/"
+               class="btn btn-success mb-2">
+
+                Add Employee
+
+            </a>
+
+            <a href="/employees/attendance/add/"
+               class="btn btn-primary mb-2">
+
+                Mark Attendance
+
+            </a>
+
+            <a href="/employees/leave/"
+               class="btn btn-warning">
+
+                Manage Leaves
+
+            </a>
 
         </div>
 

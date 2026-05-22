@@ -53,4 +53,20 @@ path('leave/reject/<int:id>/',
 path('dashboard/',
      views.dashboard,
      name='dashboard'),
+
+path('employee/dashboard/',
+     views.employee_dashboard,
+     name='employee_dashboard'),
+
+path('employee/attendance/',
+     views.employee_attendance,
+     name='employee_attendance'),
+
+path('employee/leaves/',
+     views.employee_leave_list,
+     name='employee_leave_list'),
+
+path('employee/profile/',
+     views.employee_profile,
+     name='employee_profile'),
 ]

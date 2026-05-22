@@ -1,0 +1,75 @@
+{% extends 'employees/employee_base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    My Leaves
+</h1>
+
+<table class="table table-bordered">
+
+    <thead>
+
+        <tr>
+
+            <th>Leave Type</th>
+
+            <th>Start Date</th>
+
+            <th>End Date</th>
+
+            <th>Reason</th>
+
+            <th>Status</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for leave in leaves %}
+
+        <tr>
+
+            <td>{{ leave.leave_type }}</td>
+
+            <td>{{ leave.start_date }}</td>
+
+            <td>{{ leave.end_date }}</td>
+
+            <td>{{ leave.reason }}</td>
+
+            <td>
+
+                {% if leave.status == 'Approved' %}
+
+                    <span class="badge bg-success">
+                        Approved
+                    </span>
+
+                {% elif leave.status == 'Rejected' %}
+
+                    <span class="badge bg-danger">
+                        Rejected
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-warning text-dark">
+                        Pending
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

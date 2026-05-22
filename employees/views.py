@@ -20,21 +20,35 @@ def is_hr(user):
 @login_required
 def employee_list(request):
 
+    employees = Employee.objects.all()
+
     search = request.GET.get('search')
 
     if search:
 
-        employees = Employee.objects.filter(
+        employees = employees.filter(
             name__icontains=search
         )
 
-    else:
+    context = {
 
-        employees = Employee.objects.all()
+        'employees': employees
+    }
 
-    return render(request,
-                  'employees/employee_list.html',
-                  {'employees': employees})
+    return render(
+        request,
+        'employees/employee_list.html',
+        context
+    )
+
+
+department = request.GET.get('department')
+
+if department:
+    employees = employees.filter(
+        department=department
+    )
+
 @login_required
 def add_employee(request):
 
@@ -83,11 +97,10 @@ def delete_employee(id):
 
 def login_user(request):
 
-    error = ''
-
     if request.method == 'POST':
 
         username = request.POST['username']
+
         password = request.POST['password']
 
         user = authenticate(
@@ -100,16 +113,40 @@ def login_user(request):
 
             login(request, user)
 
-            return redirect('employee_list')
+            if user.groups.filter(
+                name='HR'
+            ).exists():
+
+                return redirect(
+                    '/employees/dashboard/'
+                )
+
+            elif user.groups.filter(
+                name='Employee'
+            ).exists():
+
+                return redirect(
+                    '/employees/employee/dashboard/'
+                )
+
+            else:
+
+                return redirect(
+                    '/employees/login/'
+                )
 
         else:
 
-            error = 'Invalid username or password'
+            return render(
+                request,
+                'employees/login.html',
+                {'error': 'Invalid Username or Password'}
+            )
 
-    return render(request,
-                  'employees/login.html',
-                  {'error': error})
-
+    return render(
+        request,
+        'employees/login.html'
+    )
 def logout_user(request):
 
     logout(request)
@@ -256,3 +293,92 @@ def delete_employee(request, id):
     employee.delete()
 
     return redirect('employee_list')
+
+@login_required
+def dashboard(request):
+
+    total_employees = Employee.objects.count()
+
+    total_attendance = Attendance.objects.count()
+
+    pending_leaves = Leave.objects.filter(
+        status='Pending'
+    ).count()
+
+    approved_leaves = Leave.objects.filter(
+        status='Approved'
+    ).count()
+
+    context = {
+
+        'total_employees': total_employees,
+
+        'total_attendance': total_attendance,
+
+        'pending_leaves': pending_leaves,
+
+        'approved_leaves': approved_leaves,
+    }
+
+    return render(
+        request,
+        'employees/dashboard.html',
+        context
+    )
+
+@login_required
+def employee_attendance(request):
+
+    employee = Employee.objects.get(
+        user=request.user
+    )
+
+    attendance_records = Attendance.objects.filter(
+        employee=employee
+    )
+
+    context = {
+
+        'attendance_records': attendance_records
+    }
+
+    return render(
+        request,
+        'employees/employee_attendance.html',
+        context
+    )
+
+@login_required
+def employee_leave_list(request):
+
+    employee = Employee.objects.get(
+        user=request.user
+    )
+
+    leaves = Leave.objects.filter(
+        employee=employee
+    )
+
+    context = {
+
+        'leaves': leaves
+    }
+
+    return render(
+        request,
+        'employees/employee_leave_list.html',
+        context
+    )
+
+@login_required
+def employee_profile(request):
+
+    employee = Employee.objects.get(
+        user=request.user
+    )
+
+    return render(
+        request,
+        'employees/employee_profile.html',
+        {'employee': employee}
+    )
