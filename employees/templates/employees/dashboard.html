@@ -1,0 +1,61 @@
+{% extends 'employees/base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    HR Dashboard
+</h1>
+
+<div class="row">
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow p-3">
+
+            <h3>Total Employees</h3>
+
+            <h1>{{ total_employees }}</h1>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow p-3">
+
+            <h3>Present Today</h3>
+
+            <h1>{{ present_today }}</h1>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow p-3">
+
+            <h3>Absent Today</h3>
+
+            <h1>{{ absent_today }}</h1>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center shadow p-3">
+
+            <h3>Pending Leaves</h3>
+
+            <h1>{{ pending_leaves }}</h1>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
