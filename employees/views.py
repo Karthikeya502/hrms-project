@@ -24,10 +24,18 @@ def employee_list(request):
 
     search = request.GET.get('search')
 
+    department = request.GET.get('department')
+
     if search:
 
         employees = employees.filter(
             name__icontains=search
+        )
+
+    if department:
+
+        employees = employees.filter(
+            department=department
         )
 
     context = {
@@ -40,15 +48,6 @@ def employee_list(request):
         'employees/employee_list.html',
         context
     )
-
-
-department = request.GET.get('department')
-
-if department:
-    employees = employees.filter(
-        department=department
-    )
-
 @login_required
 def add_employee(request):
 
