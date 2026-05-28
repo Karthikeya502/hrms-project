@@ -98,9 +98,9 @@ def login_user(request):
 
     if request.method == 'POST':
 
-        username = request.POST['username']
+        username = request.POST.get('username')
 
-        password = request.POST['password']
+        password = request.POST.get('password')
 
         user = authenticate(
             request,
@@ -112,34 +112,16 @@ def login_user(request):
 
             login(request, user)
 
-            if user.groups.filter(
-                name='HR'
-            ).exists():
-
-                return redirect(
-                    '/employees/dashboard/'
-                )
-
-            elif user.groups.filter(
-                name='Employee'
-            ).exists():
-
-                return redirect(
-                    '/employees/employee/dashboard/'
-                )
-
-            else:
-
-                return redirect(
-                    '/employees/login/'
-                )
+            return redirect('/employees/dashboard/')
 
         else:
 
             return render(
                 request,
                 'employees/login.html',
-                {'error': 'Invalid Username or Password'}
+                {
+                    'error': 'Invalid username or password'
+                }
             )
 
     return render(
